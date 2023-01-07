@@ -1,4 +1,4 @@
-export const ESCROW_CONTRACT_ADDRESS = "0x16745D2B8A61D51b0Ef60d2961Dc4102649F3f2b";
+export const ESCROW_CONTRACT_ADDRESS = "0xeb09308981B824C87B13fE97e82b7AF1d6d39520";
 export const ESCROW_ABI =  [
   {
     "stateMutability": "payable",

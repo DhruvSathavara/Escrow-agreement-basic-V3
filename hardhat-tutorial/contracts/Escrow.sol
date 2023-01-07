@@ -62,9 +62,12 @@ contract Escrow {
         "can't stake after fund released !");
 
         agreements[_agreementId].serviceProviderStake = msg.value;
-        
+
     }
 
+
+//this function will release funds to serviceProvider for completing his work 
+//also this function will refund stake of client and service provider
     function releaseFunds(uint256 _agreementId) public payable {
         require(
             agreements[_agreementId].client == msg.sender,
@@ -79,10 +82,17 @@ contract Escrow {
             agreements[_agreementId].clientStake >= 0,
             "There are no funds to release."
         );
+          require(
+            agreements[_agreementId].serviceProviderStake >= 0,
+            "There are no funds to release."
+        );
+
         agreements[_agreementId].fundsReleased = true;
 
-        agreements[_agreementId].serviceProvider.transfer(agreements[_agreementId].clientStake/2);
+        // here we realising funds to service provider for his work done and also refunding his stake whic he staked while agreement is created
+        agreements[_agreementId].serviceProvider.transfer(agreements[_agreementId].clientStake);
 
+        agreements[_agreementId].client.transfer(agreements[_agreementId].serviceProviderStake);
     }
 
     function cancel(uint _agreementId) public {
